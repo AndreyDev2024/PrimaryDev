@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Primary Development Solution - soluções digitais para gestão, organização e crescimento empresarial. Conheça o StockHouse.">
+    <title>Primary Development Solution | StockHouse</title>
+    <style>
+        :root {
+            --cream: #F5F5DC;
+            --cream-soft: #FBF8E1;
+            --cream-deep: #E5DDB9;
+            --brown: #A44200;
+            --brown-dark: #7A2E00;
+            --green: #556B2F;
+            --text: #351500;
+            --muted: #725234;
+            --line: rgba(164, 66, 0, 0.24);
+            --shadow: 0 22px 70px rgba(122, 46, 0, 0.2);
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 12% 8%, rgba(85, 107, 47, 0.12), transparent 28%),
+                radial-gradient(circle at 88% 16%, rgba(164, 66, 0, 0.14), transparent 25%),
+                linear-gradient(180deg, var(--cream) 0%, var(--cream-soft) 48%, var(--cream) 100%);
+            color: var(--text);
+            font-family: Montserrat, Inter, Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img,
+        video {
+            max-width: 100%;
+            display: block;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 18px clamp(18px, 5vw, 72px);
+            border-bottom: 1px solid var(--line);
+            background: rgba(245, 245, 220, 0.9);
+            backdrop-filter: blur(18px);
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            letter-spacing: 0;
+            text-transform: uppercase;
+        }
+
+        .brand-mark {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            place-items: center;
+            border: 1px solid rgba(164, 66, 0, 0.38);
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, rgba(164, 66, 0, 0.18), rgba(85, 107, 47, 0.12));
+            color: var(--brown);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            color: var(--muted);
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+
+        .nav-links a:hover {
+            color: var(--brown);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 0 18px;
+            border: 1px solid transparent;
+            border-radius: var(--radius);
+            background: var(--brown);
+            color: var(--cream-soft);
+            cursor: pointer;
+            font-weight: 800;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background: var(--brown-dark);
+        }
+
+        .btn.secondary {
+            border-color: rgba(164, 66, 0, 0.36);
+            background: rgba(255, 251, 234, 0.68);
+            color: var(--text);
+        }
+
+        .section {
+            padding: clamp(64px, 9vw, 110px) clamp(18px, 5vw, 72px);
+        }
+
+        .hero {
+            position: relative;
+            isolation: isolate;
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            gap: clamp(36px, 6vw, 72px);
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            padding-top: clamp(48px, 7vw, 90px);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            background:
+                linear-gradient(90deg, rgba(245, 245, 220, 0.94) 0%, rgba(245, 245, 220, 0.83) 45%, rgba(245, 245, 220, 0.58) 100%),
+                linear-gradient(180deg, rgba(164, 66, 0, 0.14), rgba(85, 107, 47, 0.08)),
+                url("stockhouse-hero-bg.avif") right center / cover no-repeat;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            border-block: 1px solid rgba(164, 66, 0, 0.14);
+            background: linear-gradient(180deg, rgba(251, 248, 225, 0.15), rgba(251, 248, 225, 0.58));
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            width: fit-content;
+            margin-bottom: 18px;
+            padding: 8px 12px;
+            border: 1px solid rgba(85, 107, 47, 0.24);
+            border-radius: 999px;
+            background: rgba(85, 107, 47, 0.08);
+            color: var(--green);
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            max-width: 860px;
+            font-size: clamp(2.55rem, 6.4vw, 5.9rem);
+            line-height: 0.98;
+            letter-spacing: 0;
+            text-shadow: 0 2px 22px rgba(251, 248, 225, 0.72);
+        }
+
+        h1 span {
+            color: var(--brown);
+        }
+
+        .hero-copy {
+            max-width: 720px;
+            margin-top: 24px;
+            color: var(--muted);
+            font-size: clamp(1rem, 1.6vw, 1.25rem);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 34px;
+        }
+
+        .hero-panel {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: linear-gradient(180deg, rgba(255, 251, 234, 0.96), rgba(233, 227, 193, 0.9));
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .metric-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .metric {
+            padding: 20px;
+            border-right: 1px solid var(--line);
+        }
+
+        .metric:last-child {
+            border-right: 0;
+        }
+
+        .metric strong {
+            display: block;
+            color: var(--brown);
+            font-size: 1.45rem;
+        }
+
+        .metric span {
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .system-preview {
+            padding: 26px;
+        }
+
+        .preview-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .status {
+            color: var(--green);
+            font-size: 0.8rem;
+            font-weight: 800;
+        }
+
+        .mini-table {
+            display: grid;
+            gap: 10px;
+        }
+
+        .mini-line {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid rgba(164, 66, 0, 0.16);
+            border-radius: var(--radius);
+            background: rgba(245, 245, 220, 0.55);
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .mini-line strong {
+            color: var(--text);
+        }
+
+        .section-head {
+            max-width: 850px;
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4.2vw, 4rem);
+            line-height: 1.05;
+            letter-spacing: 0;
+        }
+
+        .section-text {
+            margin-top: 16px;
+            color: var(--muted);
+            font-size: 1.04rem;
+        }
+
+        .about-grid,
+        .stock-grid {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 26px;
+            align-items: stretch;
+        }
+
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: rgba(255, 251, 234, 0.76);
+            box-shadow: 0 16px 45px rgba(122, 46, 0, 0.1);
+        }
+
+        .text-panel {
+            padding: clamp(24px, 4vw, 38px);
+        }
+
+        .text-panel h3 {
+            color: var(--brown);
+            font-size: 1.45rem;
+        }
+
+        .text-panel p {
+            margin-top: 14px;
+            color: var(--muted);
+        }
+
+        .feature-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 24px;
+            list-style: none;
+        }
+
+        .feature-list li {
+            display: flex;
+            gap: 10px;
+            color: var(--muted);
+        }
+
+        .feature-list li::before {
+            content: "";
+            flex: 0 0 9px;
+            width: 9px;
+            height: 9px;
+            margin-top: 8px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        .video-shell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100%;
+            padding: 0;
+            border: 0;
+            border-radius: var(--radius);
+            background: transparent;
+            box-shadow: none;
+            overflow: hidden;
+        }
+
+        .video-shell video {
+            width: auto;
+            max-width: 100%;
+            height: min(72vh, 680px);
+            min-height: 520px;
+            border-radius: var(--radius);
+            object-fit: contain;
+            background: transparent;
+        }
+
+        .video-shell video:fullscreen {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .video-shell video:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .plan {
+            display: flex;
+            min-height: 100%;
+            flex-direction: column;
+            padding: 24px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: rgba(255, 251, 234, 0.82);
+        }
+
+        .plan.featured {
+            border-color: rgba(164, 66, 0, 0.44);
+            background: linear-gradient(180deg, rgba(164, 66, 0, 0.12), rgba(255, 251, 234, 0.88));
+        }
+
+        .plan h3 {
+            font-size: 1.5rem;
+        }
+
+        .price {
+            margin: 10px 0 16px;
+            color: var(--brown);
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .plan p,
+        .plan li {
+            color: var(--muted);
+        }
+
+        .plan ul {
+            display: grid;
+            gap: 10px;
+            margin: 18px 0 24px;
+            padding-left: 18px;
+        }
+
+        .plan .btn {
+            margin-top: auto;
+        }
+
+        .calculator {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 24px;
+            margin-top: 28px;
+            padding: clamp(22px, 4vw, 34px);
+            border: 1px solid rgba(164, 66, 0, 0.28);
+            border-radius: var(--radius);
+            background: rgba(233, 227, 193, 0.52);
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-size: 0.92rem;
+            font-weight: 800;
+        }
+
+        select,
+        input {
+            width: 100%;
+            min-height: 48px;
+            border: 1px solid rgba(164, 66, 0, 0.26);
+            border-radius: var(--radius);
+            background: rgba(255, 251, 234, 0.9);
+            color: var(--text);
+            padding: 0 14px;
+            font: inherit;
+            outline: none;
+        }
+
+        option {
+            color: var(--text);
+        }
+
+        .result {
+            display: grid;
+            gap: 12px;
+            align-content: center;
+            padding: 24px;
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, rgba(164, 66, 0, 0.1), rgba(85, 107, 47, 0.08));
+        }
+
+        .result-total {
+            color: var(--brown);
+            font-size: clamp(2rem, 4vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .breakdown {
+            color: var(--muted);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .person {
+            padding: 22px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: rgba(255, 251, 234, 0.82);
+        }
+
+        .avatar {
+            display: grid;
+            width: 58px;
+            height: 58px;
+            place-items: center;
+            margin-bottom: 18px;
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, var(--brown), var(--green));
+            color: var(--cream-soft);
+            font-weight: 900;
+        }
+
+        .person h3 {
+            font-size: 1.2rem;
+        }
+
+        .role {
+            display: block;
+            margin: 5px 0 12px;
+            color: var(--green);
+            font-size: 0.88rem;
+            font-weight: 800;
+        }
+
+        .person p {
+            color: var(--muted);
+            font-size: 0.94rem;
+        }
+
+        .contact-band {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: clamp(24px, 4vw, 38px);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, rgba(164, 66, 0, 0.12), rgba(85, 107, 47, 0.09));
+        }
+
+        .contact-band p {
+            max-width: 700px;
+            color: var(--muted);
+        }
+
+        footer {
+            padding: 26px clamp(18px, 5vw, 72px);
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            text-align: center;
+        }
+
+        @media (max-width: 980px) {
+            .hero,
+            .about-grid,
+            .stock-grid,
+            .calculator {
+                grid-template-columns: 1fr;
+            }
+
+            .video-shell video {
+                height: 70vh;
+                min-height: 360px;
+            }
+
+            .plans-grid,
+            .team-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 680px) {
+            .navbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-links {
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 14px;
+            }
+
+            .metric-row,
+            .plans-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .metric {
+                border-right: 0;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .metric:last-child {
+                border-bottom: 0;
+            }
+
+            .contact-band {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar" id="inicio">
+        <a class="brand" href="#inicio" aria-label="Primary Development Solution">
+            <span class="brand-mark">PD</span>
+            <span>Primary Development Solution</span>
+        </a>
+        <nav class="nav-links" aria-label="Navegacao principal">
+            <a href="#empresa">Sobre</a>
+            <a href="#stockhouse">StockHouse</a>
+            <a href="#planos">Planos</a>
+            <a href="#equipe">Equipe</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section hero">
+            <div>
+                <span class="eyebrow">Software, controle e crescimento</span>
+                <h1>Primary Development Solution <span>para empresas mais eficientes.</span></h1>
+                <p class="hero-copy">Criamos soluções digitais que reduzem trabalho manual, aumentam o controle e ajudam empresas a crescer com mais organização e eficiência.</p>
+                <div class="hero-actions">
+                    <a class="btn" href="#planos">Ver planos</a>
+                    <a class="btn secondary" href="#stockhouse">Conhecer StockHouse</a>
+                </div>
+            </div>
+
+            <aside class="hero-panel" aria-label="Resumo da plataforma">
+                <div class="metric-row">
+                    <div class="metric">
+                        <strong>4</strong>
+                        <span>integrantes principais</span>
+                    </div>
+                    <div class="metric">
+                        <strong>3</strong>
+                        <span>planos comerciais</span>
+                    </div>
+                    <div class="metric">
+                        <strong>1-10+</strong>
+                        <span>filiais suportadas</span>
+                    </div>
+                </div>
+                <div class="system-preview">
+                    <div class="preview-top">
+                        <div>
+                            <strong>StockHouse</strong>
+                            <p class="breakdown">Painel de operacao</p>
+                        </div>
+                        <span class="status">Online</span>
+                    </div>
+                    <div class="mini-table">
+                        <div class="mini-line"><strong>Estoque</strong><span>monitorado</span></div>
+                        <div class="mini-line"><strong>Vendas</strong><span>integradas</span></div>
+                        <div class="mini-line"><strong>Filiais</strong><span>centralizadas</span></div>
+                        <div class="mini-line"><strong>Relatorios</strong><span>em tempo real</span></div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="section" id="empresa">
+            <div class="section-head">
+                <span class="eyebrow">Quem somos</span>
+                <h2 class="section-title">Desenvolvemos sistemas claros para problemas reais.</h2>
+                <p class="section-text">A Primary Development Solution cria ferramentas digitais sob medida para equipes que precisam sair de controles manuais, planilhas soltas e processos repetitivos.</p>
+            </div>
+
+            <div class="about-grid">
+                <article class="panel text-panel">
+                    <h3>Nosso foco</h3>
+                    <p>Unimos analise de negocio, desenvolvimento web e automacao para entregar plataformas simples de usar, com organizacao, seguranca e visao de crescimento.</p>
+                    <ul class="feature-list">
+                        <li>Reducao de trabalho manual em processos administrativos.</li>
+                        <li>Mais controle sobre estoque, vendas, usuarios e filiais.</li>
+                        <li>Interfaces responsivas para escritorio, loja e gestao remota.</li>
+                    </ul>
+                </article>
+
+                <article class="panel text-panel">
+                    <h3>Como entregamos valor</h3>
+                    <p>Construimos sistemas com telas objetivas, informacoes bem organizadas e recursos que ajudam o gestor a tomar decisoes mais rapidas.</p>
+                    <ul class="feature-list">
+                        <li>Mapeamento do processo antes da implementacao.</li>
+                        <li>Projeto visual alinhado a identidade da empresa.</li>
+                        <li>Suporte para evoluir a solucao conforme o negocio cresce.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="stockhouse">
+            <div class="section-head">
+                <span class="eyebrow">Nosso projeto</span>
+                <h2 class="section-title">StockHouse</h2>
+                <p class="section-text">Controle seu estoque, conecte suas filiais e transforme dados do dia a dia em decisoes mais inteligentes.</p>
+            </div>
+
+            <div class="stock-grid">
+                <div class="panel video-shell">
+                    <video controls preload="metadata" poster="">
+                        <source src="/static/assets/img/video.mp4" type="video/mp4">
+                        Seu navegador nao suporta video HTML5.
+                    </video>
+                </div>
+
+                <article class="panel text-panel">
+                    <h3>O que e o StockHouse?</h3>
+                    <p>O StockHouse e um sistema de gestao para empresas que precisam controlar produtos, entradas, saidas, vendas, relatorios e filiais em um ambiente centralizado.</p>
+                    <p>Ele foi pensado para reduzir erros de estoque, facilitar a rotina de funcionarios e dar ao gestor uma visao mais confiavel sobre o que acontece em cada unidade.</p>
+                    <ul class="feature-list">
+                        <li>Cadastro e acompanhamento de produtos.</li>
+                        <li>Controle de estoque por filial.</li>
+                        <li>Relatorios para analise de desempenho.</li>
+                        <li>Organizacao de processos internos com menos retrabalho.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="planos">
+            <div class="section-head">
+                <span class="eyebrow">Planos</span>
+                <h2 class="section-title">Escolha o pacote ideal para sua operacao.</h2>
+                <p class="section-text">Cada plano recebe o valor base do sistema e soma o adicional de filiais escolhido na calculadora.</p>
+            </div>
+
+            <div class="plans-grid">
+                <article class="plan">
+                    <h3>Inicial</h3>
+                    <div class="price">R$ 500</div>
+                    <p>Para negocios que querem comecar com organizacao basica e controle digital.</p>
+                    <ul>
+                        <li>Cadastro de produtos</li>
+                        <li>Controle essencial de estoque</li>
+                        <li>Interface responsiva</li>
+                    </ul>
+                    <button class="btn secondary" type="button" data-plan="500">Selecionar</button>
+                </article>
+
+                <article class="plan featured">
+                    <h3>Medio</h3>
+                    <div class="price">R$ 1.000</div>
+                    <p>Para empresas em expansao que precisam acompanhar melhor filiais e resultados.</p>
+                    <ul>
+                        <li>Recursos do plano Inicial</li>
+                        <li>Gestao por filial</li>
+                        <li>Relatorios operacionais</li>
+                    </ul>
+                    <button class="btn" type="button" data-plan="1000">Selecionar</button>
+                </article>
+
+                <article class="plan">
+                    <h3>Completo</h3>
+                    <div class="price">R$ 1.500</div>
+                    <p>Para operacoes que querem acompanhamento completo, mais controle e suporte evolutivo.</p>
+                    <ul>
+                        <li>Recursos do plano Medio</li>
+                        <li>Painel gerencial completo</li>
+                        <li>Priorizacao de melhorias</li>
+                    </ul>
+                    <button class="btn secondary" type="button" data-plan="1500">Selecionar</button>
+                </article>
+            </div>
+
+            <div class="calculator" aria-live="polite">
+                <div class="form-grid">
+                    <div>
+                        <label for="plano">Plano escolhido</label>
+                        <select id="plano">
+                            <option value="500">Inicial - R$ 500</option>
+                            <option value="1000" selected>Medio - R$ 1.000</option>
+                            <option value="1500">Completo - R$ 1.500</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="filiais">Quantidade de filiais</label>
+                        <input id="filiais" type="number" min="1" value="1">
+                    </div>
+                </div>
+
+                <div class="result">
+                    <span class="eyebrow">Orcamento estimado</span>
+                    <div class="result-total" id="total">R$ 1.200</div>
+                    <p class="breakdown" id="breakdown">Plano Medio R$ 1.000 + adicional de filiais R$ 200.</p>
+                    <p class="breakdown">Regra: 1 a 4 filiais = R$ 200; 5 a 9 = R$ 600; 10 = R$ 1.000; acima de 10 soma R$ 50 por filial extra.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="equipe">
+            <div class="section-head">
+                <span class="eyebrow">Equipe</span>
+                <h2 class="section-title">Os quatro participantes principais.</h2>
+                <p class="section-text">Mantivemos somente os integrantes solicitados e removemos os demais participantes e suas informacoes.</p>
+            </div>
+
+            <div class="team-grid">
+                <article class="person">
+                    <div class="avatar">AR</div>
+                    <h3>Andrey Rafael</h3>
+                    <span class="role">Desenvolvedor Front-end</span>
+                    <p>Atua na construcao das telas, experiencia do usuario e estrutura visual do projeto, conectando desempenho, organizacao e identidade da plataforma.</p>
+                </article>
+
+                <article class="person">
+                    <div class="avatar">MG</div>
+                    <h3>Maria Gabriela</h3>
+                    <span class="role">Scrum Master</span>
+                    <p>Organiza os processos da equipe, acompanha os ciclos de entrega e apoia a arquitetura de dados para manter o projeto claro e bem conduzido.</p>
+                </article>
+
+                <article class="person">
+                    <div class="avatar">IK</div>
+                    <h3>Ingrid Kamilly</h3>
+                    <span class="role">Integrações e APIs</span>
+                    <p>Contribui com a conexao entre recursos do sistema, fluxos de acesso e funcionalidades que tornam a operacao mais pratica e automatizada.</p>
+                </article>
+
+                <article class="person">
+                    <div class="avatar">DH</div>
+                    <h3>Davi Herick</h3>
+                    <span class="role">Desenvolvedor Full-stack</span>
+                    <p>Trabalha nas camadas de front-end e back-end, ajudando a transformar as necessidades do StockHouse em funcionalidades completas.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="contact-band">
+                <div>
+                    <h2 class="section-title">Vamos organizar sua empresa com tecnologia?</h2>
+                    <p>Conheca o StockHouse, escolha seu plano e calcule o valor para a quantidade de filiais da sua operacao.</p>
+                </div>
+                <a class="btn" href="#planos">Calcular plano</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Primary Development Solution. StockHouse e uma solucao desenvolvida para controle, eficiencia e crescimento empresarial.</p>
+    </footer>
+
+    <script>
+        const planSelect = document.getElementById("plano");
+        const branchInput = document.getElementById("filiais");
+        const totalEl = document.getElementById("total");
+        const breakdownEl = document.getElementById("breakdown");
+        const planNames = {
+            500: "Inicial",
+            1000: "Medio",
+            1500: "Completo"
+        };
+
+        function currency(value) {
+            return value.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+                maximumFractionDigits: 0
+            });
+        }
+
+        function branchCost(branches) {
+            if (branches <= 4) return 200;
+            if (branches <= 9) return 600;
+            if (branches === 10) return 1000;
+            return 1000 + ((branches - 10) * 50);
+        }
+
+        function updateTotal() {
+            const plan = Number(planSelect.value);
+            const branches = Math.max(1, Number(branchInput.value) || 1);
+            branchInput.value = branches;
+            const branchesValue = branchCost(branches);
+            const total = plan + branchesValue;
+
+            totalEl.textContent = currency(total);
+            breakdownEl.textContent = `Plano ${planNames[plan]} ${currency(plan)} + adicional de ${branches} filial${branches > 1 ? "is" : ""} ${currency(branchesValue)}.`;
+        }
+
+        document.querySelectorAll("[data-plan]").forEach((button) => {
+            button.addEventListener("click", () => {
+                planSelect.value = button.dataset.plan;
+                document.getElementById("planos").scrollIntoView({ behavior: "smooth", block: "start" });
+                updateTotal();
+            });
+        });
+
+        planSelect.addEventListener("change", updateTotal);
+        branchInput.addEventListener("input", updateTotal);
+        updateTotal();
+    </script>
+</body>
+</html>
